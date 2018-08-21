@@ -1,0 +1,1 @@
+https://github.com/tlkh/text-emotion-classification/blob/master/dataset/original/text_emotion.csv

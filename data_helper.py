@@ -6,18 +6,23 @@ import pprint
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
+# paths = [
+# 	'./data/corpus/embedded/train_embedded.pkl',
+# 	'./data/corpus/embedded/eval_embedded.pkl',
+# 	'./data/corpus/embedded/test_embedded.pkl'
+# 	]
+
 paths = [
-	'./data/corpus/embedded/train_embedded.pkl',
-	'./data/corpus/embedded/eval_embedded.pkl',
-	'./data/corpus/embedded/test_embedded.pkl'
-	]
+	'./data/corpus_tlkh/embedded/train.pkl',
+	'./data/corpus_tlkh/embedded/eval.pkl',
+	'./data/corpus_tlkh/embedded/test.pkl'
+]
 
 
 def load_data(max_len, sort_by_len=True):
 	train_set_x, train_set_y = pkl.load(open(paths[0], 'rb'))
 	valid_set_x, valid_set_y = pkl.load(open(paths[1], 'rb'))
 	test_set_x, test_set_y = pkl.load(open(paths[2], 'rb'))
-
 
 	def len_argsort(seq):
 		return sorted(range(len(seq)), key=lambda x: len(seq[x]))
@@ -105,3 +110,8 @@ if __name__ == '__main__':
 	print(y[1]) # 3613
 	print(z.transpose()[1]) # 40, 3613
 	print(len(y)) # 3613
+
+	emotion_embeddings = pkl.load(open('./data/corpus_tlkh/embed_model/emotion_embeddings.pkl', 'rb'))
+	pprint.pprint(emotion_embeddings)
+
+	print(list(emotion_embeddings.keys())[list(emotion_embeddings.values()).index(2)])

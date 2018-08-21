@@ -14,7 +14,17 @@ batch_size = 64
 
 sentence = "i'm scared"
 
-w2v_model = word2vec.Word2Vec.load("./data/models/word2vec_model_1")
+# path_w2v = "./data/models/word2vec_model_1"
+# path_lstm_ckpt = "./runs/checkpoints/"
+# path_lstm_saver = path_lstm_ckpt + "model-2857.meta"
+
+path_word_embed = "./data/corpus_tlkh/embed_model/"
+path_w2v = path_word_embed + "word2vec_model"
+path_emo_embed = path_word_embed + "emotion_embeddings.pkl"
+path_lstm_ckpt = "./runs/checkpoints/"
+path_lstm_saver = path_lstm_ckpt + "model-2857.meta"
+
+w2v_model = word2vec.Word2Vec.load(path_w2v)
 max_len = 40
 
 sentence_embedded = []
@@ -48,8 +58,8 @@ data = padding_and_generate_mask(sentence_embedded, emotion_useless, x1, y1, mas
 
 with tf.Session() as sess:
 	# Restore variables from disk.
-	saver = tf.train.import_meta_graph("./runs/checkpoints/model-2857.meta")
-	saver.restore(sess, tf.train.latest_checkpoint("./runs/checkpoints/"))
+	saver = tf.train.import_meta_graph(path_lstm_saver)
+	saver.restore(sess, tf.train.latest_checkpoint(path_lstm_ckpt))
 
 	print("Model restored.")
 
@@ -99,13 +109,15 @@ with tf.Session() as sess:
 	# 	feed_dict[h] = state_bw[i].h
 
 	output = sess.run(fetches, feed_dict)
+	emotion_embeddings = pkl.load(open(path_emo_embed, 'rb'))
 	print("The emotion of sentence \"" + sentence + "\" is:")
-	print({
-			0: 'anger',
-			1: 'fear',
-			2: 'joy',
-			3: 'sadness'
-		}[output[0][0]])
+	print(list(emotion_embeddings.keys())[list(emotion_embeddings.values()).index(output[0][0])])
+	# print({
+	# 		0: 'anger',
+	# 		1: 'fear',
+	# 		2: 'joy',
+	# 		3: 'sadness'
+	# 	}[output[0][0]])
 
 	# # Check the values of the variables
 	# print("v1 : %s" % v1.eval())
