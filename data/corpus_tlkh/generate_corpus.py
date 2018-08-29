@@ -8,6 +8,20 @@ paths = ['./processed/test.txt',
 	'./processed/eval.txt',
 	'./processed/train.txt']
 
+
+def emotion_converg(emotion):
+	if emotion == "happiness" or emotion == "love" or emotion == "surprise" or emotion == "fun" or emotion == "enthusiasm":
+		return "happy"
+	if emotion == "empty" or emotion == "relief" or emotion == "neutral":
+		return "neutral"
+	if emotion == "worry" or emotion == "sadness":
+		return "sad"
+	if emotion == "hate" or emotion == "boredom":
+		return "hate"
+	if emotion == "anger":
+		return "anger"
+
+
 with open(path_corpus_original, 'r', encoding='utf-8') as corpus_original:
 	count = 0
 	path_tmp = './processed/temp.txt'
@@ -28,6 +42,7 @@ with open(path_corpus_original, 'r', encoding='utf-8') as corpus_original:
 			sentence = re.sub(r' {2,}', ' ', sentence).strip()
 			emotion = sentence_emotion[1]
 			emotion = re.sub(r'\"', '', emotion)
+			emotion = emotion_converg(emotion)
 			corpus_tmp.write(sentence + ';' + emotion + '\n')
 		count -= 1
 		print(count)
