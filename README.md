@@ -10,9 +10,9 @@ La géneration d'un corpus contient la collection des données brutes et les tra
 
 #### Collection des données brutes
 
-Dans notre cas, les données à collecter sont des phrases. Et comme notre objectif est de créer un chatbot, les phrases courtes nous intéressent plus. Pour entraîner un modèle à détecter l'émotion dans une phrase, nous avons besoin d'un label émotion pour chaque phrase. Et pour garder la qualité de l'entraînement, un corpus qui a plus de 100,000 phrases est mieux. Donc il va être comme : 
+Dans notre cas, les données à collecter sont des phrases. Et comme notre objectif est de créer un chatbot, les phrases courtes nous intéressent le plus. Pour entraîner un modèle à détecter l'émotion dans une phrase, nous avons besoin d'un label émotion pour chaque phrase. Et pour garder la qualité de l'entraînement, un corpus qui a plus de 100,000 phrases est mieux. Donc il va être comme : 
 
-> Une phrase court. label émotion  
+> Une phrase courte. label émotion  
 > ...  
 > ...  
 > ...\*100,000+
